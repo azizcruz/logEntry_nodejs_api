@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 const LogEntry = require("../models/LogEntry");
-const validations = require("../validations");
+const validations = require("../validators");
+const middlewares = require("../middlewares");
 
-router.get("/", async (req, res, next) => {
+router.get("/", middlewares.tokenVerify, async (req, res, next) => {
   try {
     const entries = await LogEntry.find({});
     res.json(entries);
@@ -12,7 +13,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", middlewares.tokenVerify, async (req, res, next) => {
   // Validate
   const result = validations.newEntryLogValidation(req.body);
   const { error } = result;
@@ -38,7 +39,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", middlewares.tokenVerify, async (req, res, next) => {
   try {
     const deletedLog = await LogEntry.findByIdAndDelete(req.params.id);
     res.json(deletedLog);
@@ -47,7 +48,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", middlewares.tokenVerify, async (req, res, next) => {
   try {
     const updatedLog = await LogEntry.findByIdAndUpdate(
       req.params.id,

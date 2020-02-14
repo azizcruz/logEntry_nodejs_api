@@ -21,6 +21,17 @@ const newEntryLogValidation = body => {
   return Joi.validate(body, EntryLogSchema);
 };
 
+const newVisitorValidation = body => {
+  const VisitorSchema = Joi.object().keys({
+    email: Joi.string()
+      .email()
+      .required()
+  });
+
+  return Joi.validate(body, VisitorSchema);
+};
+
 module.exports = {
-  newEntryLogValidation
+  newEntryLogValidation,
+  newVisitorValidation
 };

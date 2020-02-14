@@ -4,7 +4,10 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
 const middlewares = require("./middlewares");
+
 const logs = require("./api/logs");
+const visitors = require("./api/visitors");
+
 const mongoose = require("mongoose");
 
 const mongoooseConnectionOptions = {
@@ -29,6 +32,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/logs", logs);
+app.use("/api/visitors", visitors);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

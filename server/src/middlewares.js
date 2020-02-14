@@ -1,6 +1,7 @@
 // Handle response when not found url is requested
 
 const notFound = (req, res, next) => {
+  debugger;
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
   next(error);

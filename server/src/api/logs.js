@@ -6,6 +6,7 @@ const middlewares = require("../middlewares");
 
 router.get("/", middlewares.tokenVerify, async (req, res, next) => {
   try {
+    debugger;
     const entries = await LogEntry.find({});
     res.json(entries);
   } catch (error) {

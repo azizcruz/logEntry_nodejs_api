@@ -30,7 +30,7 @@ router.post("/", middlewares.tokenVerify, async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", middlewares.tokenVerify, async (req, res, next) => {
   try {
     const logEntry = await LogEntry.findById(req.params.id);
     res.json(logEntry);

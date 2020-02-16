@@ -18,7 +18,6 @@ router.post("/get-token", async (req, res, next) => {
   const result = validations.newVisitorValidation(req.body);
   const { error } = result;
   if (error) res.json(error);
-
   try {
     const visitor = await Visitor.findOne({ email: req.body.email });
     if (!visitor) {

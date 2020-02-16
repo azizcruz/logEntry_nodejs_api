@@ -134,7 +134,7 @@ describe("Logs api testing", () => {
     // ================================================================
 
     it("should return field is required when one of the required field is not passed", done => {
-      const testData = dummyData;
+      const testData = { ...dummyData };
       delete testData.title;
       chai
         .request(server)
@@ -248,6 +248,7 @@ describe("Logs api testing", () => {
           .set(headerToken)
           .end((err, res) => {
             res.should.have.status(200);
+            res.body.should.have.property("title").eq("Abraj Al Bait");
             done();
           });
       });
@@ -262,7 +263,8 @@ describe("Logs api testing", () => {
           .request(server)
           .delete("/api/logs/" + testData._id)
           .end((err, res) => {
-            res.should.have.status(200);
+            res.should.have.status(401);
+            res.body.should.have.property("message").eq("Access Denied.");
             done();
           });
       });

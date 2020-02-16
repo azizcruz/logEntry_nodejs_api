@@ -15,7 +15,8 @@ const mongoooseConnectionOptions = {
   useUnifiedTopology: true,
   useCreateIndex: true,
   keepAlive: 1,
-  connectTimeoutMS: 30000
+  connectTimeoutMS: 30000,
+  useFindAndModify: false
 };
 
 // Load .env file data
